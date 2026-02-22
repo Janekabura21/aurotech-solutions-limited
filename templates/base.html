@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AuroTech Water Solutions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Simple Styling -->
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .navbar {
+            background: #0077B6;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                        url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
+            background-size: cover;
+            background-position: center;
+            height: 90vh;
+            color: #00B4D8;
+            display: flex;
+            align-items: center;
+            padding: 0 60px;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            margin-right: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: #00B4D8;
+            color: white;
+        }
+
+        .btn-outline {
+            border: 2px solid white;
+            color: white;
+        }
+
+        .section {
+            padding: 80px 60px;
+            text-align: center;
+        }
+
+        .products {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .card {
+            width: 300px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        footer {
+            background: #03045E;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+
+
+
+
+        /* CORE PRODUCTS GRID */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 products per row on desktop */
+    grid-template-rows: repeat(2, auto);  /* exactly 2 rows */
+    gap: 25px;
+}
+
+/* Product card style */
+.product-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* Tablet */
+@media (max-width: 1200px) {
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(4, auto); /* wrap 10 items into 4 rows */
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(5, auto); /* 10 items / 2 per row */
+    }
+}
+
+.products-grid .product-card img {
+    width: 100%;        /* make it fit the container width */
+    max-width: 300px;   /* limit maximum width */
+    height: 120px;      /* fixed height */
+    object-fit: cover;  /* crop/fit the image nicely without distortion */
+    border-radius: 8px; /* optional: rounded corners */
+}
+
+.product-link {
+    text-decoration: none; /* remove underline */
+    color: inherit;        /* keep text color */
+}
+
+.product-link:hover .product-card {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+
+    </style>
+</head>
+<body>
+
+    <!-- TOP CONTACT BAR -->
+<div class="top-bar">
+    <div class="contact-info">
+        <span>📞 +254 712 345 678</span>
+        <span>✉ info@aurotech.co.ke</span>
+        <span>📍 Nairobi, Kenya</span>
+        <span>Mon - Fri: 8:00AM - 6:00PM</span>
+    </div>
+</div>
+
+
+
+
+
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <h2>AuroTech</h2>
+        <div>
+            <a href="#">Products</a>
+            <a href="#">Solutions</a>
+            <a href="#">Industries</a>
+            <a href="#">Resources</a>
+            <a href="#">Contact</a>
+        </div>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer>
+        <p>© 2026 AuroTech Water Solutions | Clean Water. Better Life.</p>
+    </footer>
+
+
+</body>
+</html>
