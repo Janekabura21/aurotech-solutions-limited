@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+.section-container {
+    max-width: 1000px;
+    margin: 60px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.left {
+    width: 45%;
+    text-align: left;
+}
+
+.right {
+    width: 45%;
+    text-align: right;
+    margin-left: auto;
+}
+
+.divider {
+    position: relative;
+    height: 2px;
+    background: #ccc;
+    width: 100%;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    position: absolute;
+    top: -6px;
+    width: 14px;
+    height: 14px;
+    background: #03045E;
+    border-radius: 50%;
+}
+
+.divider::before {
+    left: 30%;
+}
+
+.divider::after {
+    right: 30%;
+}
+
+h2 {
+    color: #03045E;
+}
+
+ul {
+    padding-left: 20px;
+}
+</style>
+
+<div class="section-container">
+
+    <div class="row">
+        <div class="left">
+            <h2>Our Mission</h2>
+            <p>
+                To deliver reliable, high-performance water treatment and industrial control solutions 
+                that ensure safety, efficiency, and long-term value for our customers.
+            </p>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="row">
+        <div class="right">
+            <h2>Our Vision</h2>
+            <p>
+                To become a trusted leader in water purification and industrial instrumentation, 
+                recognized for quality, innovation, and customer satisfaction.
+            </p>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="row">
+        <div class="left">
+            <h2>Our Values</h2>
+            <ul>
+                <li>Quality First</li>
+                <li>Integrity</li>
+                <li>Innovation</li>
+                <li>Customer Commitment</li>
+                <li>Reliability</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

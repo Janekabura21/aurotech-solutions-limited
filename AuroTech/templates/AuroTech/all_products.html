@@ -15,13 +15,13 @@
 
 .products-container {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 products per row on desktop */
+    grid-template-columns: repeat(4, 1fr); /* 5 products per row on desktop */
     grid-template-rows: repeat(2, auto);  /* exactly 2 rows */
     gap: 25px;
    
     
 }
-
+Z
 .product-row {
     background: #fff;
     padding: 20px;
@@ -80,7 +80,10 @@
 </style>
 <div class="page-container">
 
-
+    <div class="breadcrumb">
+                    <a href="/">Home</a> /
+                
+    </div>
 
 
     <h1 class="page-title">{{ core_product.name }}</h1>

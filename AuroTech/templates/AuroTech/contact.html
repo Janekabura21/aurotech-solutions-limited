@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+.contact-container {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
+.contact-info h2 {
+    margin-bottom: 20px;
+}
+
+.contact-info p {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.contact-form button {
+    padding: 12px 25px;
+    background: #0d1b2a;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background: #1b263b;
+}
+
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.success-message {
+    background: #e6f4ea;
+    color: #1e7e34;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+}
+
+
+</style>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="success-message">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="contact-container">
+
+            <div class="breadcrumb">
+                    <a href="/">Home</a> /
+                
+            </div>
+
+
+    <h1>Contact Us</h1>
+
+    <div class="contact-grid">
+
+        <!-- Contact Details -->
+        <div class="contact-info">
+            <h2>Get In Touch</h2>
+            <p><strong>Phone:</strong> +254 795 037 347</p>
+            <p><strong>Email:</strong> 
+                <a href="mailto:kaburajane978@gmail.com">
+                    aurotechltd@gmail.com
+                </a>
+            </p>
+            <p><strong>Location:</strong> Nairobi, Kenya</p>
+            <p><strong>Business Hours:</strong> Mon – Fri, 8:00AM – 5:00PM</p>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

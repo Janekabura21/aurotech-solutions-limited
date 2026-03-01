@@ -5,9 +5,14 @@
     <title>AuroTech Water Solutions</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    
+
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
+
+
+    {% load static %}
     <!-- Simple Styling -->
     <style>
         body {
@@ -15,15 +20,33 @@
             font-family: 'Poppins', sans-serif;
         }
 
+
+        /* Navbar */
         .navbar {
-            background: #0077B6;
-            padding: 15px 50px;
-            display: flex;
-            justify-content: space-between;
+            background: #0D1664;
+            height: 80px;
+            padding: 10px 0 0 0;            display: flex;
             align-items: center;
+            justify-content: space-between;
             color: white;
         }
 
+        /* Logo container — flexible */
+        .logo {
+            height: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex: 0 0 40%;             /* <-- exactly 40% of navbar width */
+        }
+
+        /* Logo image — fills container */
+        .logo img {
+            height: 100%;               /* match navbar height */
+            width: 100%;                /* fill container horizontally */
+            object-fit: contain;        /* maintain proportions */
+        }             /* optional maximum width */
+        
         .navbar a {
             color: white;
             text-decoration: none;
@@ -36,7 +59,7 @@
             background-size: cover;
             background-position: center;
             height: 90vh;
-            color: #00B4D8;
+            color: white;
             display: flex;
             align-items: center;
             padding: 0 60px;
@@ -57,7 +80,7 @@
         }
 
         .btn-primary {
-            background: #00B4D8;
+            
             color: white;
         }
 
@@ -67,7 +90,8 @@
         }
 
         .section {
-            padding: 80px 60px;
+            background-color: #169eb9;
+            padding: 10px 60px;
             text-align: center;
         }
 
@@ -102,15 +126,37 @@
     grid-template-columns: repeat(5, 1fr); /* 5 products per row on desktop */
     grid-template-rows: repeat(2, auto);  /* exactly 2 rows */
     gap: 25px;
+    align-items: stretch;
 }
 
 /* Product card style */
 .product-card {
-    background: #fff;
+    background: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     text-align: center;
+    height: 300px;
+
+}
+
+.product-card h5 {
+    font-weight: normal;
+}
+
+.view-more-btn {
+    display: inline-block;
+    padding: 10px 18px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: 0.3s ease;
+}
+
+.view-more-btn:hover {
+    background: #0056b3;
 }
 
 /* Tablet */
@@ -148,21 +194,60 @@
     transition: 0.3s;
     cursor: pointer;
 }
+.cta-section {
+    text-align: center;
+    padding: 60px 20px;
+    background: #CAF0F8;
+}
 
+.cta-section h2 {
+    margin-bottom: 10px;
+    font-size: 32px;
+}
+
+.cta-section p {
+    margin-bottom: 25px;
+    font-size: 18px;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #0d1b2a;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background-color: #1b263b;
+}
+.btn-secondary {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #0d1b2a;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+}
+.btn-secondary:hover {
+    background-color: #1b263b;
+}
+.footer-section {
+    background-color: #0D1664;
+}
+
+.footer-section a {
+    color: #fff;
+}
 
     </style>
 </head>
 <body>
 
-    <!-- TOP CONTACT BAR -->
-<div class="top-bar">
-    <div class="contact-info">
-        <span>📞 +254 712 345 678</span>
-        <span>✉ info@aurotech.co.ke</span>
-        <span>📍 Nairobi, Kenya</span>
-        <span>Mon - Fri: 8:00AM - 6:00PM</span>
-    </div>
-</div>
+
 
 
 
@@ -171,13 +256,24 @@
 
     <!-- NAVBAR -->
     <div class="navbar">
-        <h2>AuroTech</h2>
+       <h2 class="logo">
+            <img src="{% static 'images/products/ASL.PNG' %}" alt="AuroTech Logo">
+         
+        </h2>
         <div>
-            <a href="#">Products</a>
-            <a href="#">Solutions</a>
+            <a href="{% url 'all_products' %}">All Products</a>
+            <a href="#">Services</a>
             <a href="#">Industries</a>
-            <a href="#">Resources</a>
-            <a href="#">Contact</a>
+            <a href="{% url 'about_us' %}">About Us</a>
+            <a href="{% url 'contact' %}">Contact</a>
+            <form method="GET" action="{% url 'search_products' %}" style="display:inline-block; margin-left:20px;">
+                <input type="text" name="q" placeholder="Search products..." 
+                    style="padding:6px 10px; border-radius:6px; border:1px solid #ccc;">
+                <button type="submit" 
+                        style="padding:6px 12px; border:none; background:#007bff; color:white; border-radius:6px;">
+                    Search
+                </button>
+            </form>
         </div>
     </div>
 
@@ -185,9 +281,18 @@
     {% endblock %}
 
     <footer>
-        <p>© 2026 AuroTech Water Solutions | Clean Water. Better Life.</p>
+
+        <!-- Contact Info -->
+        <div class="footer-section">
+            <h4>Contact Us</h4>
+            <p> +254 795 037 347</p>
+            <p> <a href="mailto:auratechltd@gmail.com">auratechltd@gmail.com</a></p>
+            <p> Nairobi, Kenya</p>
+        </div>
+        <p>© 2026 AuroTech Solutions Limited | Purity in Every Element.</p>
     </footer>
 
 
+    
 </body>
 </html>

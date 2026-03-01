@@ -20,10 +20,11 @@ class Product(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     description = models.TextField()
-    length = models.CharField(max_length=100, blank=True, null=True)
+    filter_size = models.CharField(max_length=100, blank=True, null=True)
     pore_size = models.CharField(max_length=100, blank=True, null=True)
     diameter = models.CharField(max_length=100, blank=True, null=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    
     image = models.ImageField(upload_to='products/')
 
     def get_absolute_url(self):
@@ -31,11 +32,3 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-
-
-
-
-
-
-
-

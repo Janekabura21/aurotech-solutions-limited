@@ -2,13 +2,223 @@
 {% load static %}
 
 {% block content %}
-<div class="product-detail">
-    
-    <h1>{{ product.name }}</h1>
-    <img src="{{ product.image.url }}" alt="{{ product.name }}">
-    <p>{{ product.description }}</p>
-    <p>Price: ${{ product.price }}</p>
-    <a href="{{ product.core_product.get_absolute_url }}">Back to {{ product.core_product.name }}</a>
+
+<style>
+.page-container {
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.product-wrapper {
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+.product-image {
+    flex: 1;
+}
+
+.product-image img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.product-details {
+    flex: 1;
+}
+
+.product-details h1 {
+    margin-bottom: 20px;
+}
+
+.product-description {
+    margin-bottom: 25px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.contact-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s ease;
+    display: inline-block;
+}
+
+.btn-whatsapp {
+    background: #25D366;
+    color: white;
+}
+
+.btn-whatsapp:hover {
+    background: #1da851;
+}
+
+.btn-email {
+    background: #007bff;
+    color: white;
+}
+
+.btn-email:hover {
+    background: #0056b3;
+}
+
+.btn-back {
+    margin-top: 25px;
+    display: inline-block;
+    text-decoration: none;
+    color: #555;
+}
+
+.spec-box {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 25px;
+}
+
+.spec-box h3 {
+    margin-bottom: 15px;
+}
+
+.spec-box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.spec-box li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.breadcrumb {
+    font-size: 14px;
+    margin-bottom: 15px;
+    color: #777;
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.availability {
+    background: #e6f4ea;
+    color: #1e7e34;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+
+
+
+
+</style>
+
+<div class="page-container">
+
+    <div class="product-wrapper">
+
+        <!-- LEFT SIDE: DESCRIPTION -->
+        <div class="product-details">
+
+
+            <div class="breadcrumb">
+                    <a href="/">Home</a> /
+                    <a href="{% url 'core_product_detail' product.core_product.slug %}">
+                        {{ product.core_product.name }}
+                    </a> /
+                    {{ product.name }}
+            </div>
+
+            <h1>{{ product.name }}</h1>
+
+            <div class="product-description">
+                <p>{{ product.description }}</p>
+
+
+
+
+            
+
+                {% if product.core_product.slug == "sediment-filter" or product.core_product.slug == "carbon-filter" %}
+                    <div class="spec-box">
+                        <h4>Specifications</h4>
+
+                        <ul>
+                            {% if product.filter_size %}
+                                <li><strong>Filter Size:</strong> {{ product.filter_size }}</li>
+                            {% endif %}
+
+                            {% if product.pore_size %}
+                                <li><strong>Pore Size:</strong> {{ product.pore_size }}</li>
+                            {% endif %}
+
+                            {% if product.diameter %}
+                                <li><strong>Diameter:</strong> {{ product.diameter }}</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+
+
+            </div>
+
+            <div class="product-meta">
+                    <span class="availability">✔ In Stock</span>
+            </div>
+
+
+            <div class="contact-buttons">
+                <!-- WhatsApp -->
+                <a href="https://wa.me/254795298917?text=Hello, I am interested in {{ product.name }}"
+                   class="btn btn-whatsapp">
+                    Contact via WhatsApp
+                </a>
+
+                <!-- Email -->
+                <a href="mailto: kaburajane978@gmail.com?subject=Inquiry about {{ product.name }}"
+                   class="btn btn-email">
+                    Contact via Email
+                </a>
+            </div>
+
+            <a href="mailto:kaburajane978@gmail.com?subject=Request Quote - {{ product.name }}"
+                class="btn btn-quote">
+                Request a Quote
+            </a>
+
+            
+
+            <a href="{% url 'core_product_detail' product.core_product.slug %}" class="btn-back">
+                ← Back 
+            </a>
+        </div>
+
+        <!-- RIGHT SIDE: IMAGE -->
+        <div class="product-image">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% endif %}
+        </div>
+
+    </div>
 
 </div>
+
 {% endblock %}

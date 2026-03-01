@@ -3,21 +3,27 @@
 
 {% block content %}
 
+
 <!-- HERO SECTION -->
 <div class="hero">
     <div class="hero-content">
         <h1>Innovative Water Treatment Solutions</h1>
-        <p>Delivering safe, compliant, and high-performance water treatment solutions for industries, municipalities, and homes</p>
+        <h5></h5>Delivering safe, compliant, high-performance systems for industries and homes.</p>
 
-        
+        <div class="hero-buttons">
+            <a href="#core-products" class="btn-primary">Explore Products</a>
+            <a href="mailto:auratechltd@gmail.com" class="btn-secondary">Request Quote</a>
+        </div>
     </div>
 </div>
 
+
+
 <!-- PROBLEM / SOLUTION -->
-<div class="section">60
+<div class="section">
 
     <h2>Is Your Water Safe?</h2>
-    <p>We solve hard water, contamination, scaling, and odor problems using advanced purification technologies.</p>
+    <h5></h5>We solve hard water, contamination, scaling, and odor problems using advanced purification technologies.</p>
 </div>
 
 
@@ -32,80 +38,96 @@
         <div class="product-card">
             <img src="{% static 'images/products/sediment-cartridges.jpeg' %}" alt="Sediment Filter">
 
-            <h3>Sediment Filter Cartridges</h3>
-            <p><h6>High-efficiency filtration cartridges for removal of dirt, sand, and suspended particles.</h6></p>
+            <h4>Sediment Filter Cartridges</h4>
+            <h5>High-efficiency filtration cartridges for removal of dirt, sand, and suspended particles.</h5>
         </div>
     </a>
 
     <a href="{% url 'core_product_detail' 'carbon-filter' %}" class="product-link">
         <div class="product-card">
             <img src="{% static 'images/products/carbon-block.jpeg' %}" alt="Carbon Filtration Products">
-            <h3>Carbon Filtration Products</h3>
-            <p><h6>Activated carbon solutions for chlorine removal, odor control, and improved taste.</h6></p>
+            <h4>Carbon Filtration Products </h4>
+            <h5>Activated carbon solutions for chlorine removal, odor control, and improved taste.</h5>
         </div>
     </a>
 
     <a href="{% url 'core_product_detail' 'ro-membranes' %}" class="product-link">
         <div class="product-card">
             <img src="{% static 'images/products/RO-membranes.jpeg' %}" alt="RO Membranes">
-            <h3>Reverse Osmosis (RO) Membranes</h3>
-            <p><h6>Advanced membrane technology for high-purity water production.</h6></p>
+            <h4>Reverse Osmosis (RO) Membranes </h4>
+            <h5>Advanced membrane technology for high-purity water production.</h5>
         </div>
     </a>
 
     <a href="{% url 'core_product_detail' 'ro-housings' %}" class="product-link">
         <div class="product-card">
             <img src="{% static 'images/products/RO-housing-membranes.jpeg' %}" alt="RO Membrane Housings">
-            <h3>RO Membrane Housings & Pressure Vessels</h3>
-            <p><h6>Durable FRP and stainless steel housings for industrial RO systems.</h6></p>
+            <h4>RO Membrane Housings & Pressure Vessels </h4>
+            <h5>Durable FRP and stainless steel housings for industrial RO systems.</h5>
         </div>
     </a>
 
     <a href="{% url 'core_product_detail' 'water-pumps' %}" class="product-link">
         <div class="product-card">
             <img src="{% static 'images/products/pumps.jpeg' %}" alt="Water Pumps">
-            <h3>Water Pumps</h3>
-            <p><h6>Reliable booster and high-pressure pumps for residential and industrial use.</h6></p>
+            <h4>Water Pumps </h4>
+            <h5>Reliable booster and high-pressure pumps for residential and industrial use.</h5>
         </div>
     </a>
 
     <a href="{% url 'core_product_detail' 'chemicals-media' %}" class="product-link">
         <div class="product-card">
             <img src="{% static 'images/products/water-treatment.jpeg' %}" alt="Water Treatment Chemicals & Media">
-            <h3>Water Treatment Chemicals & Media</h3>
-            <p><h6>Specialized chemicals and filtration media for optimized treatment performance.</h6></p>
+            <h4>Water Treatment Chemicals & Media </h4>
+            <h5>Specialized chemicals and filtration media for optimized treatment performance.</h5>
         </div>
     </a>
 
     <a href="{% url 'core_product_detail' 'softeners-resin' %}" class="product-link">
         <div class="product-card">
             <img src="{% static 'images/products/Softener.jpeg' %}" alt="Water Softeners & Resin Systems">
-            <h3>Water Softeners & Resin Systems</h3>
-            <p><h6>Efficient ion exchange systems for hardness removal and scale prevention.</h6></p>
+            <h4>Water Softeners & Resin Systems </h4>
+            <h5>Efficient ion exchange systems for hardness removal and scale prevention.</h5>
         </div>
     </a>
 
     <a href="{% url 'core_product_detail' 'filter-housings' %}" class="product-link">
         <div class="product-card">
             <img src="{% static 'images/products/filter-housings.jpeg' %}" alt="Filter Housings & Accessories">
-            <h3>Filter Housings & Accessories</h3>
-            <p><h6>Complete range of filter casings, connectors, and supporting components.</h6></p>
+            <h4>Filter Housings & Accessories </h4>
+            <h5>Complete range of filter casings, connectors, and supporting components.</h5>
         </div>
     </a>
 
     <a href="{% url 'core_product_detail' 'storage-tanks' %}" class="product-link">
         <div class="product-card">
             <img src="{% static 'images/products/water-storage.jpeg' %}" alt="Water Storage Tanks">
-            <h3>Water Storage Tanks</h3>
-            <p><h6>High-capacity storage solutions for treated and raw water applications.</h6></p>
+            <h4>Water Storage Tanks </h4>
+            <h5>High-capacity storage solutions for treated and raw water applications.</h5>
         </div>
     </a>
 
     <a href="{% url 'core_product_detail' 'fittings-valves' %}" class="product-link">
         <div class="product-card">
             <img src="{% static 'images/products/sediment-cartridges.jpeg' %}" alt="Fittings, Valves & Plumbing Components">
-            <h3>Fittings, Valves & Plumbing Components</h3>
-            <p><h6>Precision-engineered fittings and control valves for secure installations.</h6></p>  
+            <h4>Fittings, Valves & Plumbing Components </h4>
+            <h5>Precision-engineered fittings and control valves for secure installations.</h5>  
+        </div>
+    </a>
+
+    <a href="{% url 'core_product_detail' 'control-instruments' %}" class="product-link">
+        <div class="product-card">
+            <img src="{% static 'images/products/ph meter.jpeg' %}" alt="control instruments">
+            <h4>Control Instruments</h4>
+            <h5>Precision control instruments built for reliable monitoring and industrial automation</h5>  
+        </div>
+    </a>
+
+    <a href="{% url 'core_product_detail' 'ro-systems' %}" class="product-link">
+        <div class="product-card">
+            <img src="{% static 'images/products/undersink.jpeg' %}" alt="control instruments">
+            <h4>RO Systems</h4>
+            <h5>Efficient RO systems for clean, safe drinking water.</h5>  
         </div>
     </a>
 
@@ -113,6 +135,30 @@
 
 
 </div>
+
+
+<div class="section">
+    <h2>Why Choose AuroTech?</h2>
+
+    <div class="features">
+        <div class="feature-box">
+            <h4>✔ Certified Quality</h4>
+            <h5></h5>All products meet international safety standards.</p>
+        </div>
+
+        <div class="feature-box">
+            <h4>✔ Industrial Grade Materials</h4>
+            <h5></h5>Built for durability and long-term performance.</p>
+        </div>
+
+        <div class="feature-box">
+            <h4>✔ Custom Solutions</h4>
+            <h5></h5>We design systems tailored to your needs.</p>
+        </div>
+    </div>
+</div>
+
+
 
 
 
@@ -121,9 +167,13 @@
 
 
 <!-- FINAL CTA -->
-<div class="section" style="background:#CAF0F8;">
-    <h2>Ready for Clean & Healthy Water?</h2>
-    <a href="#" class="btn btn-primary">Book a Demo</a>
+<div class="cta-section">
+    <h2>Need a Reliable Water Treatment Solution?</h2>
+    <h5></h5>Speak with our technical team today.</p>
+
+    <a href="mailto:kaburajane978@gmail.com" class="btn-primary">
+        Request a Consultation
+    </a>
 </div>
 
 {% endblock %}
