@@ -29,13 +29,10 @@ SECRET_KEY = 'django-insecure-gp0mx1dsx#r3hh_3emn_gp298&t(%!d37!kapetb-v_nq-!fco
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [
-    "aurotech-solutions-limited.onrender.com",
-    "aurotechlimited.com",
-    "www.aurotechlimited.com",
-   
-
-]
+ALLOWED_HOSTS = os.environ.get(
+    "ALLOWED_HOSTS",
+    "aurotech-solutions-limited-1.onrender.com,aurotechlimited.com,www.aurotechlimited.com"
+).split(",")
 
 # Application definition
 
