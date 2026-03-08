@@ -5,211 +5,239 @@
     <title>AuroTech Water Solutions</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    
-
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-
-
     {% load static %}
-    <!-- Simple Styling -->
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-        }
+<style>
 
-
-        /* Navbar */
-        .navbar {
-            background: #0D1664;
-            height: 80px;
-            padding: 10px 0 0 0;            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            color: white;
-        }
-
-        /* Logo container — flexible */
-        .logo {
-            height: 100%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            flex: 0 0 40%;             /* <-- exactly 40% of navbar width */
-        }
-
-        /* Logo image — fills container */
-        .logo img {
-            height: 100%;               /* match navbar height */
-            width: 100%;                /* fill container horizontally */
-            object-fit: contain;        /* maintain proportions */
-        }             /* optional maximum width */
-        
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            margin-left: 20px;
-        }
-
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-                        url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
-            background-size: cover;
-            background-position: center;
-            height: 90vh;
-            color: white;
-            display: flex;
-            align-items: center;
-            padding: 0 60px;
-        }
-
-        .hero-content {
-            max-width: 600px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 25px;
-            margin-right: 15px;
-            margin-top: 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .btn-primary {
-            
-            color: white;
-        }
-
-        .btn-outline {
-            border: 2px solid white;
-            color: white;
-        }
-
-        .section {
-            background-color: #169eb9;
-            padding: 10px 60px;
-            text-align: center;
-        }
-
-        .products {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-
-        .card {
-            width: 300px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-radius: 10px;
-        }
-
-        footer {
-            background: #03045E;
-            color: white;
-            padding: 40px;
-            text-align: center;
-        }
-
-
-
-
-
-        /* CORE PRODUCTS GRID */
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 products per row on desktop */
-    grid-template-rows: repeat(2, auto);  /* exactly 2 rows */
-    gap: 25px;
-    align-items: stretch;
+    * {
+    box-sizing: border-box;
 }
 
-/* Product card style */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;  /* prevent horizontal scrolling */
+}
+
+/* Navbar */
+.navbar {
+    background: #0D1664;
+    height: 80px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    position: relative;
+    z-index: 1001;
+}
+
+.logo {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex: 0 0 40%;
+}
+
+.logo img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Desktop links */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+}
+
+.nav-links form input {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.nav-links form button {
+    padding: 6px 12px;
+    border: none;
+    background: #007bff;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Hamburger button */
+.hamburger {
+    display: none;
+    font-size: 28px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    z-index: 1002;
+}
+
+/* Overlay for mobile sidebar */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 900;
+}
+
+/* Sidebar (mobile) */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        left: -260px;
+        width: 260px;
+        height: 100vh;
+        background: #0D1664;
+        flex-direction: column;
+        padding: 80px 30px;
+        transition: left 0.3s ease;
+        box-sizing: border-box;
+        z-index: 1000;
+        overflow-y: auto;
+    }
+
+    .nav-links a {
+        margin: 15px 0;
+        font-size: 18px;
+    }
+
+    .nav-links form {
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .nav-links.active {
+        left: 0;
+    }
+
+    .overlay.active {
+        display: block;
+    }
+}
+
+/* Hero section */
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
+    background-size: cover;
+    background-position: center;
+    height: 90vh;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.hero-content { max-width: 600px; }
+
+.section {
+    background-color: #169eb9;
+    padding: 40px 0;   /* IMPORTANT: no left/right padding */
+    text-align: center;
+}
+
+/* Container for consistent width */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* Products Grid */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+
+    width: 100%;
+}
+@media (max-width: 1200px) {
+    .products-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Uniform product cards */
 .product-card {
     background: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     text-align: center;
-    height: 300px;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* evenly distribute content */
+    min-height: 300px; /* all cards same height */
+    box-sizing: border-box;
 }
 
-.product-card h5 {
-    font-weight: normal;
+.product-card img {
+    width: 100%;
+    height: 150px;       /* uniform image height */
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
 }
 
-.view-more-btn {
-    display: inline-block;
-    padding: 10px 18px;
-    background: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 14px;
-    transition: 0.3s ease;
-}
-
-.view-more-btn:hover {
-    background: #0056b3;
-}
-
-/* Tablet */
-@media (max-width: 1200px) {
-    .products-grid {
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(4, auto); /* wrap 10 items into 4 rows */
-    }
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-    .products-grid {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(5, auto); /* 10 items / 2 per row */
-    }
-}
-
-.products-grid .product-card img {
-    width: 100%;        /* make it fit the container width */
-    max-width: 300px;   /* limit maximum width */
-    height: 120px;      /* fixed height */
-    object-fit: cover;  /* crop/fit the image nicely without distortion */
-    border-radius: 8px; /* optional: rounded corners */
-}
-
-.product-link {
-    text-decoration: none; /* remove underline */
-    color: inherit;        /* keep text color */
-}
-
-.product-link:hover .product-card {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    transition: 0.3s;
-    cursor: pointer;
-}
-.cta-section {
-    text-align: center;
-    padding: 60px 20px;
-    background: #CAF0F8;
-}
-
-.cta-section h2 {
-    margin-bottom: 10px;
-    font-size: 32px;
-}
-
-.cta-section p {
-    margin-bottom: 25px;
+.product-card h4 {
+    margin: 10px 0 5px 0;
     font-size: 18px;
 }
 
+.product-card h5 {
+    font-size: 14px;
+    color: #333;
+    flex-grow: 1; /* push spacing to bottom */
+}
+
+.product-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.product-card h4 {
+    text-decoration: none;
+    color: #000;   /* black */
+    margin-top: 15px;
+}
+
+/* CTA Section */
+.cta-section { text-align: center; padding: 60px 20px; background: #CAF0F8; }
+.cta-section h2 { font-size: 32px; margin-bottom: 10px; }
 .btn-primary {
     display: inline-block;
     padding: 12px 25px;
@@ -219,80 +247,63 @@
     border-radius: 5px;
     font-weight: 600;
 }
+.btn-primary:hover { background-color: #1b263b; }
 
-.btn-primary:hover {
-    background-color: #1b263b;
+footer {
+    background: #03045E;
+    color: white;
+    padding: 40px;
+    text-align: center;
 }
-.btn-secondary {
-    display: inline-block;
-    padding: 12px 25px;
-    background-color: #0d1b2a;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: 600;
-}
-.btn-secondary:hover {
-    background-color: #1b263b;
-}
-.footer-section {
-    background-color: #0D1664;
-}
-
-.footer-section a {
-    color: #fff;
-}
-
-    </style>
+</style>
 </head>
 <body>
 
-
-
-
-
-
-
-
     <!-- NAVBAR -->
     <div class="navbar">
-       <h2 class="logo">
-            <img src="{% static 'images/products/ASL.PNG' %}" alt="AuroTech Logo">
-         
+        <h2 class="logo">
+            <img src="{% static 'images/products/ASL.png' %}" alt="AuroTech Logo">
         </h2>
-        <div>
+
+        <!-- Hamburger button for mobile -->
+        <button class="hamburger" onclick="toggleSidebar()">☰</button>
+
+        <div class="nav-links">
             <a href="{% url 'index' %}">Home</a>
             <a href="{% url 'all_products' %}">All Products</a>
             <a href="{% url 'services' %}">Services</a>
             <a href="{% url 'about_us' %}">About Us</a>
             <a href="{% url 'contact' %}">Contact</a>
-            <form method="GET" action="{% url 'search_products' %}" style="display:inline-block; margin-left:20px;">
-                <input type="text" name="q" placeholder="Search products..." 
-                    style="padding:6px 10px; border-radius:6px; border:1px solid #ccc;">
-                <button type="submit" 
-                        style="padding:6px 12px; border:none; background:#007bff; color:white; border-radius:6px;">
-                    Search
-                </button>
+            <form method="GET" action="{% url 'search_products' %}">
+                <input type="text" name="q" placeholder="Search products...">
+                <button type="submit">Search</button>
             </form>
         </div>
     </div>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay" onclick="toggleSidebar()"></div>
 
     {% block content %}
     {% endblock %}
 
     <footer>
-
-        <!-- Contact Info -->
         <div class="footer-section">
             <h4>Contact Us</h4>
             <p> +254 795 037 347</p>
-            <p> <a href="mailto:aurotechltd@gmail.com">aurotechltd@gmail.com</a></p>
+            <p><a href="mailto:aurotechltd@gmail.com">aurotechltd@gmail.com</a></p>
             <p> Nairobi, Kenya</p>
         </div>
         <p>© 2026 AuroTech Solutions Limited | Purity in Every Element.</p>
     </footer>
 
-
-    
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.nav-links');
+            const overlay = document.querySelector('.overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
