@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+.services-container{
+    max-width:1100px;
+    margin:60px auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+}
+
+.service-card{
+    border:1px solid #ddd;
+    padding:25px;
+    border-radius:8px;
+    background:white;
+    transition:0.3s;
+}
+
+.service-card:hover{
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    transform:translateY(-5px);
+}
+
+.service-card h3{
+    margin-bottom:10px;
+    color:#03045E;
+}
+
+.cta-section{
+    margin-top:60px;
+    text-align:center;
+    padding:40px;
+    background:#f5f7fa;
+    border-radius:8px;
+}
+
+.cta-section h2{
+    color:#03045E;
+    margin-bottom:10px;
+}
+
+.contact-btn{
+    display:inline-block;
+    margin-top:15px;
+    padding:12px 25px;
+    background:#03045E;
+    color:white;
+    text-decoration:none;
+    border-radius:5px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.contact-btn:hover{
+    background:#023e8a;
+}
+</style>
+
+
+<h1 style="text-align:center;">Our Services</h1>
+
+<div class="services-container">
+
+<div class="service-card">
+<h3>Water Quality Testing</h3>
+<p>Professional testing and analysis of water parameters including pH, TDS, conductivity, and contamination levels.</p>
+</div>
+
+<div class="service-card">
+<h3>Filtration System Installation</h3>
+<p>Installation of sediment filters, carbon filtration systems, and industrial water purification equipment.</p>
+</div>
+
+<div class="service-card">
+<h3>Equipment Calibration</h3>
+<p>Precision calibration of monitoring instruments such as pH meters, conductivity meters, and laboratory devices.</p>
+</div>
+
+<div class="service-card">
+<h3>Maintenance & Support</h3>
+<p>Routine servicing, troubleshooting, and maintenance of filtration and water treatment equipment.</p>
+</div>
+
+<div class="service-card">
+<h3>Industrial Water Solutions</h3>
+<p>Custom solutions for industrial water treatment, process monitoring, and quality control.</p>
+</div>
+
+</div>
+
+<div class="cta-section">
+    <h2>For More Information</h2>
+    <p>Contact our team today to discuss your water treatment needs and get expert support.</p>
+
+    <a href="{% url 'contact' %}" class="contact-btn">Contact Us</a>
+</div>
+
+{% endblock %}

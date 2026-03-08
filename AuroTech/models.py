@@ -26,9 +26,24 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     
     image = models.ImageField(upload_to='products/')
-
+    odoo_id = models.IntegerField(null=True, blank=True, help_text="ID of this product in Odoo")
     def get_absolute_url(self):
         return reverse('product_detail', args=[self.slug])
 
     def __str__(self):
         return self.name
+
+
+
+class QuoteRequest(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    company = models.CharField(max_length=200, blank=True, null=True)
+    email = models.EmailField()
+    phone = models.CharField(max_length=50, blank=True, null=True)
+    quantity = models.PositiveIntegerField(default=1)
+    message = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.product.name}"

@@ -123,6 +123,23 @@
     margin-bottom: 15px;
 }
 
+.quote-btn {
+    display: inline-block;        /* make it behave like a button */
+    background-color: #03045E;    /* deep blue color */
+    color: white;                 /* text color */
+    padding: 10px 20px;           /* vertical + horizontal padding */
+    text-decoration: none;        /* remove underline */
+    border-radius: 6px;           /* rounded corners */
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect */
+.quote-btn:hover {
+    background-color: #023e8a;    /* slightly lighter/different blue */
+    transform: scale(1.05);       /* subtle zoom effect */
+}
+
 
 
 
@@ -152,9 +169,6 @@
 
 
 
-
-            
-
                 {% if product.core_product.slug == "sediment-filter" or product.core_product.slug == "carbon-filter" %}
                     <div class="spec-box">
                         <h4>Specifications</h4>
@@ -183,6 +197,10 @@
                     <span class="availability">✔ In Stock</span>
             </div>
 
+            <a href="{% url 'request_multi_quote' %}" class="quote-btn">
+                Request Quote
+            </a>
+
 
             <div class="contact-buttons">
                 <!-- WhatsApp -->
@@ -198,10 +216,7 @@
                 </a>
             </div>
 
-            <a href="mailto:kaburajane978@gmail.com?subject=Request Quote - {{ product.name }}"
-                class="btn btn-quote">
-                Request a Quote
-            </a>
+            
 
             
 

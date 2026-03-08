@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+
+    .success-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #e6fff0; /* light green background */
+    border: 2px solid #00b894; /* green border */
+    padding: 15px 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.tick-circle {
+    width: 30px;
+    height: 30px;
+    background-color: #00b894; /* green */
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+</style>
+
+<div class="success-popup" id="successPopup">
+    <div class="tick-circle">
+        &#10004;  <!-- ✓ tick symbol -->
+    </div>
+    <p>Quote request submitted successfully!</p>
+</div>
+
+<script>
+    // Hide popup after 5 seconds
+    setTimeout(() => {
+        const popup = document.getElementById('successPopup');
+        if (popup) {
+            popup.style.opacity = '0';
+            setTimeout(() => popup.remove(), 500); // remove after fade-out
+        }
+    }, 5000);
+</script>
+
+{% endblock %}

@@ -261,9 +261,9 @@
          
         </h2>
         <div>
+            <a href="{% url 'index' %}">Home</a>
             <a href="{% url 'all_products' %}">All Products</a>
-            <a href="#">Services</a>
-            <a href="#">Industries</a>
+            <a href="{% url 'services' %}">Services</a>
             <a href="{% url 'about_us' %}">About Us</a>
             <a href="{% url 'contact' %}">Contact</a>
             <form method="GET" action="{% url 'search_products' %}" style="display:inline-block; margin-left:20px;">
@@ -286,7 +286,7 @@
         <div class="footer-section">
             <h4>Contact Us</h4>
             <p> +254 795 037 347</p>
-            <p> <a href="mailto:auratechltd@gmail.com">auratechltd@gmail.com</a></p>
+            <p> <a href="mailto:aurotechltd@gmail.com">aurotechltd@gmail.com</a></p>
             <p> Nairobi, Kenya</p>
         </div>
         <p>© 2026 AuroTech Solutions Limited | Purity in Every Element.</p>

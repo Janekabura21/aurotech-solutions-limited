@@ -21,7 +21,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('AuroTech.urls')),
+    path('', include('aurotech.urls')),
+    
 
 ]
 if settings.DEBUG:
