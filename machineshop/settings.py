@@ -127,7 +127,7 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = BASE_DIR / "staticfiles"
 # Optional, for project-level static folder
 STATICFILES_DIRS = [
     BASE_DIR / "static",
