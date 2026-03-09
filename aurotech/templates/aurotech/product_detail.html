@@ -124,26 +124,20 @@
 }
 
 .quote-btn {
-    display: inline-block;        /* make it behave like a button */
-    background-color: #03045E;    /* deep blue color */
-    color: white;                 /* text color */
-    padding: 10px 20px;           /* vertical + horizontal padding */
-    text-decoration: none;        /* remove underline */
-    border-radius: 6px;           /* rounded corners */
+    display: inline-block;
+    background-color: #03045E;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 6px;
     font-weight: bold;
     transition: background 0.3s ease, transform 0.2s ease;
 }
 
-/* Hover effect */
 .quote-btn:hover {
-    background-color: #023e8a;    /* slightly lighter/different blue */
-    transform: scale(1.05);       /* subtle zoom effect */
+    background-color: #023e8a;
+    transform: scale(1.05);
 }
-
-
-
-
-
 </style>
 
 <div class="page-container">
@@ -153,13 +147,12 @@
         <!-- LEFT SIDE: DESCRIPTION -->
         <div class="product-details">
 
-
             <div class="breadcrumb">
-                    <a href="/">Home</a> /
-                    <a href="{% url 'core_product_detail' product.core_product.slug %}">
-                        {{ product.core_product.name }}
-                    </a> /
-                    {{ product.name }}
+                <a href="/">Home</a> /
+                <a href="{% url 'core_product_detail' product.core_product.slug %}">
+                    {{ product.core_product.name }}
+                </a> /
+                {{ product.name }}
             </div>
 
             <h1>{{ product.name }}</h1>
@@ -167,68 +160,56 @@
             <div class="product-description">
                 <p>{{ product.description }}</p>
 
-
-
                 {% if product.core_product.slug == "sediment-filter" or product.core_product.slug == "carbon-filter" %}
                     <div class="spec-box">
                         <h4>Specifications</h4>
-
                         <ul>
                             {% if product.filter_size %}
                                 <li><strong>Filter Size:</strong> {{ product.filter_size }}</li>
                             {% endif %}
-
                             {% if product.pore_size %}
                                 <li><strong>Pore Size:</strong> {{ product.pore_size }}</li>
                             {% endif %}
-
                             {% if product.diameter %}
                                 <li><strong>Diameter:</strong> {{ product.diameter }}</li>
                             {% endif %}
                         </ul>
                     </div>
                 {% endif %}
-
-
-
             </div>
 
             <div class="product-meta">
-                    <span class="availability">✔ In Stock</span>
+                <span class="availability">✔ In Stock</span>
             </div>
 
             <a href="{% url 'request_multi_quote' %}" class="quote-btn">
                 Request Quote
             </a>
 
-
             <div class="contact-buttons">
-                <!-- WhatsApp -->
                 <a href="https://wa.me/254795298917?text=Hello, I am interested in {{ product.name }}"
                    class="btn btn-whatsapp">
                     Contact via WhatsApp
                 </a>
 
-                <!-- Email -->
-                <a href="mailto: kaburajane978@gmail.com?subject=Inquiry about {{ product.name }}"
+                <a href="mailto:kaburajane978@gmail.com?subject=Inquiry about {{ product.name }}"
                    class="btn btn-email">
                     Contact via Email
                 </a>
             </div>
 
-            
-
-            
-
             <a href="{% url 'core_product_detail' product.core_product.slug %}" class="btn-back">
                 ← Back 
             </a>
+
         </div>
 
         <!-- RIGHT SIDE: IMAGE -->
         <div class="product-image">
             {% if product.image %}
-                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <img src="{% static product.image %}" alt="{{ product.name }}">
+            {% else %}
+                <img src="{% static 'images/products/default.jpg' %}" alt="No image available">
             {% endif %}
         </div>
 

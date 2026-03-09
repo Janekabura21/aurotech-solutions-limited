@@ -59,14 +59,23 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/6.0/howto/static-files/
+
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
-    },
-}
+# Tell Django where to find app-level static files before collecting
+STATICFILES_DIRS = [
+    BASE_DIR / "aurotech" / "static",
+]
+
+# Use WhiteNoise for serving static files in production
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+
+
+
 
 ROOT_URLCONF = 'machineshop.urls'
 
@@ -93,8 +102,12 @@ WSGI_APPLICATION = 'machineshop.wsgi.application'
 
 if os.environ.get("DATABASE_URL"):
     DATABASES = {
-        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600,       # Keep connection alive for production
+        ssl_require=True        # Force SSL for Postgres on Render
+    )
+}
 else:
     DATABASES = {
         'default': {
