@@ -25,7 +25,7 @@ class Product(models.Model):
     diameter = models.CharField(max_length=100, blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     
-    image = models.CharField(max_length=255, blank=True)
+    image = models.ImageField(upload_to='products/')
     odoo_id = models.IntegerField(null=True, blank=True, help_text="ID of this product in Odoo")
     def get_absolute_url(self):
         return reverse('product_detail', args=[self.slug])
