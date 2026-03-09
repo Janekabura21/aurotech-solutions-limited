@@ -17,12 +17,6 @@ secrets.py
 # Database
 db.sqlite3
 
-# Static files (if collected)
-staticfiles/
-
-# Media uploads
-media/
-
 # VS Code
 .vscode/
 
