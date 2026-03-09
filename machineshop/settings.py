@@ -90,7 +90,7 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [
     BASE_DIR / "aurotech" / "static",
 ]
-
+WHITENOISE_SKIP_COMPRESS = True
 # Use WhiteNoise for serving static files in production
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
