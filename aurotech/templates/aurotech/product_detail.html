@@ -207,7 +207,7 @@
         <!-- RIGHT SIDE: IMAGE -->
         <div class="product-image">
             {% if product.image %}
-                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <img src="{% static product.image %}" alt="{{ product.name }}">
             {% else %}
                 <img src="{% static 'images/products/default.jpg' %}" alt="No image available">
             {% endif %}
