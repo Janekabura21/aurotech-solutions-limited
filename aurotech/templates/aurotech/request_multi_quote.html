@@ -2,9 +2,8 @@
 {% block content %}
 
 <style>
-/* Form container */
 form {
-    max-width: 700px;           /* wider to fit multiple products */
+    max-width: 700px;
     margin: 20px auto;
     padding: 30px;
     background-color: #f9f9f9;
@@ -13,14 +12,12 @@ form {
     font-family: Arial, sans-serif;
 }
 
-/* Headings */
 form h2, form h3 {
     text-align: center;
     color: #03045E;
     margin-bottom: 15px;
 }
 
-/* Labels */
 form label {
     display: block;
     margin-bottom: 5px;
@@ -29,7 +26,6 @@ form label {
     margin-top: 15px;
 }
 
-/* Inputs and textarea */
 form input[type="text"],
 form input[type="email"],
 form input[type="number"],
@@ -41,7 +37,6 @@ form textarea {
     box-sizing: border-box;
     margin-bottom: 10px;
     font-size: 14px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 form input:focus,
@@ -51,7 +46,6 @@ form textarea:focus {
     outline: none;
 }
 
-/* Submit button */
 form button {
     display: block;
     width: 100%;
@@ -64,15 +58,12 @@ form button {
     border-radius: 6px;
     cursor: pointer;
     margin-top: 15px;
-    transition: background 0.3s ease, transform 0.2s ease;
 }
 
 form button:hover {
     background-color: #023e8a;
-    transform: scale(1.02);
 }
 
-/* Product list table */
 .product-list {
     width: 100%;
     border-collapse: collapse;
@@ -82,7 +73,6 @@ form button:hover {
 .product-list th,
 .product-list td {
     padding: 10px;
-    text-align: left;
     border-bottom: 1px solid #ddd;
 }
 
@@ -92,6 +82,15 @@ form button:hover {
 </style>
 
 <h2>Request Quote for Multiple Products</h2>
+
+<!-- Display Messages -->
+{% if messages %}
+    {% for message in messages %}
+        <div style="color:red; text-align:center; margin-bottom:10px;">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
 
 <form method="POST">
     {% csrf_token %}
@@ -108,24 +107,35 @@ form button:hover {
     <label>Phone</label>
     <input type="text" name="phone">
 
-    <h3>Products</h3>
+    <h3>Select Products</h3>
+
     <table class="product-list">
         <tr>
             <th>Product</th>
             <th>Quantity</th>
         </tr>
+
         {% for product in products %}
         <tr>
             <td>{{ product.name }}</td>
-            <td><input type="number" name="quantity_{{ product.id }}" min="0" value="0"></td>
+            <td>
+                <input type="number"
+                       name="quantity_{{ product.id }}"
+                       min="0"
+                       value="0">
+            </td>
         </tr>
         {% endfor %}
+
     </table>
 
     <label>Additional Details</label>
-    <textarea name="message"></textarea>
+    <textarea name="message" rows="4"></textarea>
 
-    <button type="submit">Submit Quote Request</button>
+    <button type="submit">
+        Request Quote via Email
+    </button>
+
 </form>
 
 {% endblock %}
