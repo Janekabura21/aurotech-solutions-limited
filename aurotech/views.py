@@ -205,6 +205,7 @@ def create_sale_order_multi(partner_id, order_lines, message):
 # -------------------------------
 def request_multi_quote(request):
     products = Product.objects.all()
+    mailto_link = None  # Initialize
 
     if request.method == "POST":
         name = request.POST.get("name") or ""
@@ -213,13 +214,9 @@ def request_multi_quote(request):
         phone = request.POST.get("phone") or ""
         message = request.POST.get("message") or ""
 
-        order_lines = []
         email_lines = ""
         selected_any = False
 
-        # -------------------------------
-        # Process quantities
-        # -------------------------------
         for product in products:
             try:
                 qty = int(request.POST.get(f"quantity_{product.id}") or 0)
@@ -230,31 +227,11 @@ def request_multi_quote(request):
                 selected_any = True
                 email_lines += f"{product.name} - Quantity: {qty}\n"
 
-                if product.odoo_id:
-                    order_lines.append(
-                        (0, 0, {
-                            "product_id": product.odoo_id,
-                            "product_uom_qty": qty
-                        })
-                    )
-
-                QuoteRequest.objects.create(
-                    product=product,
-                    name=name,
-                    company=company,
-                    email=email,
-                    phone=phone,
-                    quantity=qty,
-                    message=message
-                )
-
         if not selected_any:
             messages.error(request, "Please select at least one product.")
             return render(request, "aurotech/request_multi_quote.html", {"products": products})
 
-        # -------------------------------
-        # Prepare email content
-        # -------------------------------
+        # Build the mailto link
         subject = "Quote Request - Aurotech"
         email_body = f"""
 New Quote Request
@@ -270,37 +247,9 @@ Products Requested:
 Message:
 {message}
 """
-        # Mailto link for client-side email
+        from urllib.parse import quote
         mailto_link = f"mailto:aurotechltd@gmail.com?subject={quote(subject)}&body={quote(email_body)}"
 
-        # -------------------------------
-        # Attempt SMTP email
-        # -------------------------------
-        try:
-            send_mail(
-                subject=subject,
-                message=email_body,
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[settings.EMAIL_HOST_USER],
-                fail_silently=True,  # don't crash server
-            )
-        except Exception as e:
-            print("SMTP email error:", e)
-            # Still proceed, user can use mailto fallback
+        messages.success(request, "Your quote request is ready! Click the button below to open your email.")
 
-        # -------------------------------
-        # Create Odoo sale order
-        # -------------------------------
-        try:
-            partner_id = create_or_get_partner(name, email, company, phone)
-            if partner_id:
-                create_sale_order_multi(partner_id, order_lines, message)
-        except Exception as e:
-            print("Odoo integration error:", e)
-
-        # -------------------------------
-        # Render page that opens email in browser
-        # -------------------------------
-        return render(request, "aurotech/quote_email_open.html", {"mailto_link": mailto_link})
-
-    return render(request, "aurotech/request_multi_quote.html", {"products": products})
+    return render(request, "aurotech/request_multi_quote.html", {"products": products, "mailto_link": mailto_link})
