@@ -14,17 +14,24 @@
     margin-bottom: 40px;
 }
 
-/* Default: 5 columns for desktop/laptop */
-.products-container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 25px;
+/* Ensure padding and borders don’t break grid */
+.products-container,
+.products-container * {
+    box-sizing: border-box;
 }
 
-/* Tablets / small laptops: optional 3 columns if desired */
+/* Default grid: desktops / large screens */
+.products-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 items per row */
+    gap: 15px; /* spacing between items */
+    padding: 10px; /* optional container padding */
+}
+
+/* Tablet / medium screens: 3 columns */
 @media (max-width: 1024px) {
     .products-container {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
@@ -32,6 +39,8 @@
 @media (max-width: 768px) {
     .products-container {
         grid-template-columns: repeat(2, 1fr);
+        gap: 10px; /* reduce gap slightly for narrow screens */
+        padding: 5px; /* optional */
     }
 }
 
@@ -39,14 +48,22 @@
 @media (max-width: 400px) {
     .products-container {
         grid-template-columns: 1fr;
-    }
-
-    .product-image img {
-        width: 100%;
-        height: auto;
+        gap: 5px;
+        padding: 5px;
     }
 }
 
+/* Make product images responsive */
+.product-image img {
+    width: 100%;
+    height: auto;
+    display: block; /* remove extra spacing below images */
+}
+
+/* Optional: ensure product items have no extra margin that could break the grid */
+.product {
+    margin: 0;
+}
 .product-row {
     background: #fff;
     padding: 20px;
