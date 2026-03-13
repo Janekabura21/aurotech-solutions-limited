@@ -79,37 +79,55 @@ form button:hover {
 .product-list input[type="number"] {
     width: 80px;
 }
+
+.error-message {
+    color: red;
+}
+.success-message {
+    color: green;
+}
+
 </style>
+
 
 <h2>Request Quote for Multiple Products</h2>
 
-<!-- Display Messages -->
+<!-- Display Django messages -->
 {% if messages %}
     {% for message in messages %}
-        <div style="color:red; text-align:center; margin-bottom:10px;">
+        
+        <div class="{% if message.tags == 'error' %}error-message{% else %}success-message{% endif %}" style="text-align:center; margin-bottom:10px;">
             {{ message }}
         </div>
     {% endfor %}
+    
 {% endif %}
 
 <form method="POST">
     {% csrf_token %}
 
-    <label>Your Name</label>
-    <input type="text" name="name" required>
+    <div>
+        <label>Your Name <span style="color:red;">*</span></label>
+        <input type="text" name="name" required>
+    </div>
 
-    <label>Company</label>
-    <input type="text" name="company">
+    <div>
+        <label>Company</label>
+        <input type="text" name="company">
+    </div>
 
-    <label>Email</label>
-    <input type="email" name="email" required>
+    <div>
+        <label>Email <span style="color:red;">*</span></label>
+        <input type="email" name="email" required>
+    </div>
 
-    <label>Phone</label>
-    <input type="text" name="phone">
+    <div>
+        <label>Phone</label>
+        <input type="text" name="phone">
+    </div>
 
     <h3>Select Products</h3>
-
-    <table class="product-list">
+    <table class="product-list" border="1" cellpadding="8" cellspacing="0" style="width:100%; text-align:left;">
         <tr>
             <th>Product</th>
             <th>Quantity</th>
@@ -126,16 +144,15 @@ form button:hover {
             </td>
         </tr>
         {% endfor %}
-
     </table>
 
-    <label>Additional Details</label>
-    <textarea name="message" rows="4"></textarea>
+    <div>
+        <label>Additional Details</label>
+        <textarea name="message" rows="4"></textarea>
+    </div>
 
-    <button type="submit">
-        Request Quote via Email
+    <button type="submit" style="margin-top:10px;">
+        Request Quote
     </button>
-
 </form>
-
 {% endblock %}

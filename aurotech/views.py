@@ -217,6 +217,9 @@ def request_multi_quote(request):
         email_lines = ""
         selected_any = False
 
+        # -------------------------------
+        # Process quantities
+        # -------------------------------
         for product in products:
             try:
                 qty = int(request.POST.get(f"quantity_{product.id}") or 0)
@@ -250,7 +253,7 @@ def request_multi_quote(request):
             return render(request, "aurotech/request_multi_quote.html", {"products": products})
 
         # -------------------------------
-        # SEND EMAIL VIA SMTP
+        # Prepare email content
         # -------------------------------
         subject = "Quote Request - Aurotech"
         email_body = f"""
@@ -267,21 +270,26 @@ Products Requested:
 Message:
 {message}
 """
+        # Mailto link for client-side email
+        mailto_link = f"mailto:aurotechltd@gmail.com?subject={quote(subject)}&body={quote(email_body)}"
+
+        # -------------------------------
+        # Attempt SMTP email
+        # -------------------------------
         try:
             send_mail(
                 subject=subject,
                 message=email_body,
                 from_email=settings.EMAIL_HOST_USER,
                 recipient_list=[settings.EMAIL_HOST_USER],
-                fail_silently=False,
+                fail_silently=True,  # don't crash server
             )
         except Exception as e:
-            print("Email sending error:", e)
-            messages.error(request, "Failed to send email. Please try again later.")
-            return render(request, "aurotech/request_multi_quote.html", {"products": products})
+            print("SMTP email error:", e)
+            # Still proceed, user can use mailto fallback
 
         # -------------------------------
-        # CREATE ODOO SALE ORDER
+        # Create Odoo sale order
         # -------------------------------
         try:
             partner_id = create_or_get_partner(name, email, company, phone)
@@ -290,7 +298,9 @@ Message:
         except Exception as e:
             print("Odoo integration error:", e)
 
-        messages.success(request, "Your quote request has been submitted successfully!")
-        return redirect("request_multi_quote")
+        # -------------------------------
+        # Render page that opens email in browser
+        # -------------------------------
+        return render(request, "aurotech/quote_email_open.html", {"mailto_link": mailto_link})
 
     return render(request, "aurotech/request_multi_quote.html", {"products": products})
