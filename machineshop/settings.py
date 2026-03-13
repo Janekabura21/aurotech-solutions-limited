@@ -17,6 +17,7 @@ import dj_database_url # type: ignore
 
 
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -39,15 +40,15 @@ ALLOWED_HOSTS = os.environ.get(
 # Application definition
 
 INSTALLED_APPS = [
-    'cloudinary',
     'cloudinary_storage',
+    'django.contrib.staticfiles',   
+    'cloudinary',
     'aurotech',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'crispy_forms'
 ]
 
