@@ -164,8 +164,6 @@ USE_TZ = True
 
 MEDIA_URL = "/media/"
 
-# Optional fallback local media
-MEDIA_ROOT = BASE_DIR / "media"
 
 # Cloudinary configuration
 CLOUDINARY_STORAGE = {
