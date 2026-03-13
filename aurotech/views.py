@@ -8,7 +8,6 @@ import requests
 
 from .models import CoreProduct, Product, QuoteRequest
 
-
 # -------------------------------
 # CONTACT FORM
 # -------------------------------
@@ -68,10 +67,7 @@ def core_product_detail(request, slug):
 # -------------------------------
 def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug)
-
-    return render(request, 'aurotech/product_detail.html', {
-        'product': product
-    })
+    return render(request, 'aurotech/product_detail.html', {'product': product})
 
 
 # -------------------------------
@@ -124,11 +120,8 @@ DB = "aurotech-solutions-limited1"
 USER_ID = 2
 
 
-# -------------------------------
-# CREATE OR GET ODOO CUSTOMER
-# -------------------------------
 def create_or_get_partner(name, email, company, phone):
-
+    """Create or fetch a partner in Odoo."""
     payload = {
         "jsonrpc": "2.0",
         "method": "call",
@@ -144,16 +137,14 @@ def create_or_get_partner(name, email, company, phone):
         },
         "id": 1
     }
-
     try:
         response = requests.post(f"{ODOO_URL}/jsonrpc", json=payload).json()
-
         if response.get("result"):
             return response["result"][0]["id"]
-
     except Exception as e:
         print("Partner check error:", e)
 
+    # Create if not found
     payload_create = {
         "jsonrpc": "2.0",
         "method": "call",
@@ -173,21 +164,16 @@ def create_or_get_partner(name, email, company, phone):
         },
         "id": 2
     }
-
     try:
         response_create = requests.post(f"{ODOO_URL}/jsonrpc", json=payload_create).json()
         return response_create.get("result")
-
     except Exception as e:
         print("Partner creation error:", e)
         return None
 
 
-# -------------------------------
-# CREATE ODOO SALE ORDER
-# -------------------------------
 def create_sale_order_multi(partner_id, order_lines, message):
-
+    """Create sale order in Odoo."""
     payload = {
         "jsonrpc": "2.0",
         "method": "call",
@@ -206,11 +192,9 @@ def create_sale_order_multi(partner_id, order_lines, message):
         },
         "id": 3
     }
-
     try:
         response = requests.post(f"{ODOO_URL}/jsonrpc", json=payload).json()
         return response.get("result")
-
     except Exception as e:
         print("Sale order error:", e)
         return None
@@ -220,11 +204,9 @@ def create_sale_order_multi(partner_id, order_lines, message):
 # MULTI PRODUCT QUOTE REQUEST
 # -------------------------------
 def request_multi_quote(request):
-
     products = Product.objects.all()
 
     if request.method == "POST":
-
         name = request.POST.get("name") or ""
         company = request.POST.get("company") or ""
         email = request.POST.get("email") or ""
@@ -236,16 +218,13 @@ def request_multi_quote(request):
         selected_any = False
 
         for product in products:
-
             try:
                 qty = int(request.POST.get(f"quantity_{product.id}") or 0)
             except ValueError:
                 qty = 0
 
             if qty > 0:
-
                 selected_any = True
-
                 email_lines += f"{product.name} - Quantity: {qty}\n"
 
                 if product.odoo_id:
@@ -271,11 +250,9 @@ def request_multi_quote(request):
             return render(request, "aurotech/request_multi_quote.html", {"products": products})
 
         # -------------------------------
-        # CREATE EMAIL CONTENT
+        # SEND EMAIL VIA SMTP
         # -------------------------------
-
         subject = "Quote Request - Aurotech"
-
         email_body = f"""
 New Quote Request
 
@@ -290,22 +267,30 @@ Products Requested:
 Message:
 {message}
 """
-
-        mailto_link = f"mailto:aurotechltd@gmail.com?subject={quote(subject)}&body={quote(email_body)}"
+        try:
+            send_mail(
+                subject=subject,
+                message=email_body,
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[settings.EMAIL_HOST_USER],
+                fail_silently=False,
+            )
+        except Exception as e:
+            print("Email sending error:", e)
+            messages.error(request, "Failed to send email. Please try again later.")
+            return render(request, "aurotech/request_multi_quote.html", {"products": products})
 
         # -------------------------------
         # CREATE ODOO SALE ORDER
         # -------------------------------
-
         try:
             partner_id = create_or_get_partner(name, email, company, phone)
-
             if partner_id:
                 create_sale_order_multi(partner_id, order_lines, message)
-
         except Exception as e:
             print("Odoo integration error:", e)
 
-        return redirect(mailto_link)
+        messages.success(request, "Your quote request has been submitted successfully!")
+        return redirect("request_multi_quote")
 
     return render(request, "aurotech/request_multi_quote.html", {"products": products})
