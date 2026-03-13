@@ -5,6 +5,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from urllib.parse import quote
 import requests
+from django.forms.models import model_to_dict
 
 from .models import CoreProduct, Product, QuoteRequest
 
@@ -204,52 +205,9 @@ def create_sale_order_multi(partner_id, order_lines, message):
 # MULTI PRODUCT QUOTE REQUEST
 # -------------------------------
 def request_multi_quote(request):
-    products = Product.objects.all()
-    mailto_link = None  # Initialize
+    # Convert queryset to list of dicts so it's JSON-serializable
+    products = list(Product.objects.values("id", "name"))
 
-    if request.method == "POST":
-        name = request.POST.get("name") or ""
-        company = request.POST.get("company") or ""
-        email = request.POST.get("email") or ""
-        phone = request.POST.get("phone") or ""
-        message = request.POST.get("message") or ""
-
-        email_lines = ""
-        selected_any = False
-
-        for product in products:
-            try:
-                qty = int(request.POST.get(f"quantity_{product.id}") or 0)
-            except ValueError:
-                qty = 0
-
-            if qty > 0:
-                selected_any = True
-                email_lines += f"{product.name} - Quantity: {qty}\n"
-
-        if not selected_any:
-            messages.error(request, "Please select at least one product.")
-            return render(request, "aurotech/request_multi_quote.html", {"products": products})
-
-        # Build the mailto link
-        subject = "Quote Request - Aurotech"
-        email_body = f"""
-New Quote Request
-
-Name: {name}
-Company: {company}
-Email: {email}
-Phone: {phone}
-
-Products Requested:
-{email_lines}
-
-Message:
-{message}
-"""
-        from urllib.parse import quote
-        mailto_link = f"mailto:aurotechltd@gmail.com?subject={quote(subject)}&body={quote(email_body)}"
-
-        messages.success(request, "Your quote request is ready! Click the button below to open your email.")
-
-    return render(request, "aurotech/request_multi_quote.html", {"products": products, "mailto_link": mailto_link})
+    return render(request, "aurotech/request_multi_quote.html", {
+        "products": products
+    })
