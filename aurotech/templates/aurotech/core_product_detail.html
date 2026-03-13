@@ -14,55 +14,25 @@
     margin-bottom: 40px;
 }
 
-/* Ensure padding and borders don’t break grid */
-.products-container,
-.products-container * {
-    box-sizing: border-box;
+/* Desktop: 4 columns */
+@media (min-width: 1025px) {
+    .products-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
-/* Default grid: desktops / large screens */
-.products-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 items per row */
-    gap: 15px; /* spacing between items */
-    padding: 10px; /* optional container padding */
-}
-
-/* Tablet / medium screens: 3 columns */
-@media (max-width: 1024px) {
+/* Tablet: 3 columns */
+@media (min-width: 769px) and (max-width: 1024px) {
     .products-container {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
-/* Phones / small screens: 2 columns */
+/* Phone: 2 columns (all phones, any size) */
 @media (max-width: 768px) {
     .products-container {
         grid-template-columns: repeat(2, 1fr);
-        gap: 10px; /* reduce gap slightly for narrow screens */
-        padding: 5px; /* optional */
     }
-}
-
-/* Very small screens / narrow phones: 1 column */
-@media (max-width: 400px) {
-    .products-container {
-        grid-template-columns: 1fr;
-        gap: 5px;
-        padding: 5px;
-    }
-}
-
-/* Make product images responsive */
-.product-image img {
-    width: 100%;
-    height: auto;
-    display: block; /* remove extra spacing below images */
-}
-
-/* Optional: ensure product items have no extra margin that could break the grid */
-.product {
-    margin: 0;
 }
 .product-row {
     background: #fff;
