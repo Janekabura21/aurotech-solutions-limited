@@ -4,8 +4,28 @@
 
 .products-container {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 equal columns */
     gap: 25px;
+}
+
+/* Desktop: 5 columns */
+@media (min-width: 1025px) {
+    .products-container {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+/* Tablet: 3 columns */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .products-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Smartphone: 2 columns */
+@media (max-width: 768px) {
+    .products-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 .product-row {
@@ -23,10 +43,16 @@
 }
 
 .product-image img {
-    width: 220px;
-    height: 180px;
+    width: 100%;       /* Responsive width */
+    height: 180px;     /* Desktop height */
     object-fit: cover;
     border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+    .product-image img {
+        height: 140px; /* Smaller height for phones */
+    }
 }
 
 .product-info {
@@ -41,8 +67,21 @@
     font-size: 14px;
     color: #555;
     margin-bottom: 10px;
+}
 
+.view-more-btn {
+    display: inline-block;
+    padding: 10px 18px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: 0.3s ease;
+}
 
+.view-more-btn:hover {
+    background: #0056b3;
 }
 
 </style>
@@ -50,7 +89,8 @@
 <div style="max-width:1000px; margin:50px auto; padding:20px;">
 
     <h2>Search Results for "{{ query }}"</h2>
-   <div class="products-container">
+
+    <div class="products-container">
         {% if results %}
             {% for product in results %}
                 <div class="product-row">
@@ -65,8 +105,7 @@
                         <h3>{{ product.name }}</h3>
                         <p>{{ product.description|truncatewords:10 }}...</p>
 
-                        <a href="{% url 'product_detail' product.slug %}" 
-                        class="view-more-btn">
+                        <a href="{% url 'product_detail' product.slug %}" class="view-more-btn">
                             View Full Details
                         </a>
                     </div>
@@ -74,9 +113,9 @@
                 </div>
             {% endfor %}
         {% else %}
-    <p style="margin-top:20px;">No products found.</p>
-{% endif %}
-</div>
+            <p style="margin-top:20px;">No products found.</p>
+        {% endif %}
+    </div>
 
 </div>
 

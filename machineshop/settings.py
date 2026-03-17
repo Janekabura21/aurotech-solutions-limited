@@ -34,7 +34,7 @@ DEBUG = True
 ALLOWED_HOSTS = os.environ.get(
     
     "ALLOWED_HOSTS",
-    "192.168.1.106,localhost,127.0.0.1,aurotech-solutions-limited-1.onrender.com,aurotechlimited.com,www.aurotechlimited.com"
+    "192.168.1.101,localhost,127.0.0.1,aurotech-solutions-limited-1.onrender.com,aurotechlimited.com,www.aurotechlimited.com"
 ).split(",")
 
 # Application definition

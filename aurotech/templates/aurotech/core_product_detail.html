@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block content %}
-
 <style>
 .page-container {
     max-width: 1100px;
@@ -12,6 +11,12 @@
 
 .page-title {
     margin-bottom: 40px;
+}
+
+/* Products grid */
+.products-container {
+    display: grid;
+    gap: 25px;
 }
 
 /* Desktop: 4 columns */
@@ -28,12 +33,13 @@
     }
 }
 
-/* Phone: 2 columns (all phones, any size) */
+/* Smartphone: 2 columns */
 @media (max-width: 768px) {
     .products-container {
-        grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 }
+
 .product-row {
     background: #fff;
     padding: 20px;
@@ -49,10 +55,16 @@
 }
 
 .product-image img {
-    width: 220px;
-    height: 180px;
+    width: 100%;       /* Responsive width */
+    height: 180px;     /* Desktop height */
     object-fit: cover;
     border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+    .product-image img {
+        height: 140px; /* Smaller height for phones */
+    }
 }
 
 .product-info h3 {
@@ -80,10 +92,8 @@
     background: #0056b3;
 }
 </style>
+
 <div class="page-container">
-
-
-
 
     <h1 class="page-title">{{ core_product.name }}</h1>
 
@@ -100,13 +110,8 @@
 
                 <div class="product-info">
                     <h3>{{ product.name }}</h3>
-
                     <p>{{ product.description|truncatewords:10 }}...</p>
-
-                    
-
-                    <a href="{% url 'product_detail' product.slug %}" 
-                       class="view-more-btn">
+                    <a href="{% url 'product_detail' product.slug %}" class="view-more-btn">
                         View Full Details
                     </a>
                 </div>
