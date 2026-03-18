@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-gp0mx1dsx#r3hh_3emn_gp298&t(%!d37!kapetb-v_nq-!fco'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = os.environ.get(
     
@@ -163,10 +163,9 @@ USE_TZ = True
 
 
 
-MEDIA_URL = "/media/"
 
 # Optional fallback local media
-MEDIA_ROOT = BASE_DIR / "media"
+# MEDIA_ROOT = BASE_DIR / "media"
 
 # Cloudinary configuration
 CLOUDINARY_STORAGE = {
