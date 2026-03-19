@@ -3,7 +3,7 @@
 {% block content %}
 <style>
 
-/* GLOBAL FIX (prevents overflow issues everywhere) */
+/* GLOBAL FIX */
 * {
     box-sizing: border-box;
 }
@@ -22,12 +22,14 @@ body {
     margin-bottom: 40px;
 }
 
+/* DESKTOP: 4 per row */
 .products-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 20px;
 }
 
+/* PRODUCT CARD */
 .product-row {
     background: #fff;
     padding: 15px;
@@ -84,8 +86,20 @@ body {
     background: #0056b3;
 }
 
-/* MOBILE OPTIMIZATION */
+/* TABLET */
+@media (max-width: 992px) {
+    .products-container {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* MOBILE: FORCE 2 PER ROW (FIXED) */
 @media (max-width: 768px) {
+    .products-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+    }
+
     .product-image img {
         height: 140px;
     }
